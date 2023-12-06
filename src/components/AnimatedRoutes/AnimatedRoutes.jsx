@@ -8,8 +8,8 @@ function AnimatedRoutes(){
     return(
         <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
-            <Route path='/#' element={<ShuffleHero/>}/>
-            <Route path='/#/Quiz' element={<Quiz questions={Qn.questions} />}/>
+            <Route path='/' element={<ShuffleHero/>}/>
+            <Route path='/' element={<Quiz questions={Qn.questions} />}/>
         </Routes>
         </AnimatePresence>
     );
