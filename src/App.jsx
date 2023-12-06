@@ -1,11 +1,11 @@
-import { BrowserRouter,Routes,Route } from 'react-router-dom';
+import { HashRouter,Routes,Route } from 'react-router-dom';
 
 import AnimatedRoutes from './components/AnimatedRoutes/AnimatedRoutes';
 function App() {
   return(
-  <BrowserRouter>
+  <HashRouter>
       <AnimatedRoutes/>
-  </BrowserRouter>);
+  </HashRouter>);
   
   // return <Quiz questions={jsQuizz.questions}/>;
 }
