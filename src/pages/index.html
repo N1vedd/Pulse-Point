@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Pulse-Point</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"
+      integrity="sha512-jEnuDt6jfecCjthQAJ+ed0MTVA++5ZKmlUcmDGBv2vUI/REn6FuIdixLNnQT+vKusE2hhTk2is3cFvv5wA+Sgg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <div class="page page--1">
+      <div id="black-outline-container">
+        <nav>
+          <h1><span id="logo">Pulse-Point</span></h1>
+        </nav>
+
+        <div id="hero-page">
+          <div id="main-hero">
+            <img src="./images/1.jpg" id="img-1" />
+            <div class="main-text">
+              <span class="special-words">TRANSFORM</span> YOURUSINESS WITH,<br />INSIGHTFUL<br /><span
+              class="special-words"
+              >ASSESSMENT </span>
+
+              <div id="scroll"></div>
+            </div>
+          </div>
+          <img src="./images/2.jpg" id="img-2" />
+          <div id="hero-image"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    bodymovin.loadAnimation({
+      container: document.getElementById("hero-image"),
+      path: "./images/anim.json",
+    });
+  </script>
+</html>

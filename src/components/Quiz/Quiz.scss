@@ -1,0 +1,97 @@
+@import "../../styles/vars.scss";
+
+body{
+    font-family: monospace;
+    background: $bg;
+    color: $foreground;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding:0 30px;
+    height: 100vh;
+
+}
+
+#screen{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    min-width: 100vw;
+}
+
+.quiz-container{
+    min-width: 85vw;
+    min-height: 70vh;
+    background: $bg;
+    border: 1px solid black;
+    border-radius: 4px;
+    margin-top: 4px;
+    padding: 30px 60px;
+    box-sizing: border-box;
+
+    .active-question-no{
+        font-size: 32px;
+        font-weight: 500;
+        color: $primary;
+
+    }
+
+    .total-question{
+        font-size: 16px;
+        font-weight: 500;
+        color: $disabled;
+    }
+
+    h2{
+        font-size: 30px;
+        font-weight: 500;
+        margin: 0;
+    }
+
+    ul{
+        margin-top: 100px;
+        margin-left: -40px;
+
+        li{
+            font-size: 20px;
+            text-decoration: none;
+            list-style: none;
+            color: $foreground;
+            background: $bg;
+            border: 1px solid $disabled;
+            border-radius: 8px;
+            padding: 11px;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+        .selected-answer{
+            background: $primary;
+            border: 1px solid $accent;
+            color: $bg;
+        }
+    }
+
+    .footer{
+        margin-top: 30px;
+        display: flex;
+        justify-content: flex-end;
+        button{
+            cursor: pointer;
+            background: $primary;
+            color: white;
+            font-size: 15px;
+            padding: 10px 30px;
+            border-radius: 4px;
+            border: 1px black solid;
+        }
+    }
+
+    h3{
+        font-size: 40px;
+    }
+
+    .Score{
+        font-size: 30px;
+    }
+}

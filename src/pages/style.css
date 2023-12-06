@@ -1,0 +1,227 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@400;500&family=Poppins&display=swap");
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  font-family: "Oswald", sans-serif;
+  color: black;
+  background: #f5f5f3;
+  cursor: default;
+}
+
+nav {
+  padding-left: 42.5%;
+}
+#logo {
+  top: 0;
+  position: fixed;
+  font-size: 35px;
+  font-family: "Poppins", sans-serif;
+}
+
+.special-words {
+  -webkit-text-stroke: 3px black;
+  color: transparent;
+}
+.page {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  scroll-snap-align: start;
+  overflow: hidden;
+}
+
+#black-outline-container {
+  width: 94vw;
+  height: 90vh;
+  border: 1px solid black;
+}
+#hero-page {
+  display: flex;
+  flex-direction: row;
+  width: 94vw;
+  height: 100%;
+  justify-content: space-evenly;
+}
+.main-text {
+  width: 40vw;
+  padding-top: 130px;
+  padding-left: 9%;
+  font-size: 110px;
+  font-weight: 500;
+  line-height: 120px;
+}
+
+#hero-image {
+  position: relative;
+  background-size: cover;
+  bottom: 0%;
+  width: 900px;
+  height: 800px;
+  border-left: 3px solid black;
+}
+
+#scroll {
+  position: absolute;
+  float: right;
+  right: 50px;
+  width: 150px;
+  height: 150px;
+}
+
+#img-1 {
+  top: -140px;
+  left: -30px;
+  position: absolute;
+  z-index: -1;
+  height: 350px;
+  width: 350px;
+  transform: rotate(15deg);
+}
+
+#img-2 {
+  bottom: -10px;
+  left: 800px;
+  position: absolute;
+  z-index: -1;
+  height: 450px;
+  transform: rotate(-15deg);
+}
+
+#second-main {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  justify-content: space-evenly;
+}
+
+.about-us {
+  padding-top: 100px;
+  padding-right: 50px;
+  width: 50vw;
+  font-size: 80px;
+  line-height: 80px;
+  font-weight: 400;
+}
+
+#img-3 {
+  margin-top: 100px;
+  z-index: 5;
+  width: 25vw;
+  height: 75vh;
+  transform: rotate(5deg);
+  border: 15px solid #e3530f;
+}
+
+.orange-underline {
+  position: relative;
+}
+
+.orange-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 5px;
+  background: #e3530f;
+}
+
+.page--3 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.card {
+  background: white;
+  display: flex;
+  flex-direction: column;
+  max-height: 88vh;
+  max-width: 30vw;
+  height: 100%;
+  border: 1px solid black;
+}
+
+#card-img-1 {
+  margin: auto;
+  width: 500px;
+  height: 600px;
+}
+
+#card-img-2 {
+  margin: auto;
+  width: 500px;
+  height: 600px;
+}
+
+#card-img-3 {
+  margin: auto;
+  width: 500px;
+  height: 600px;
+}
+
+.c-img-1 {
+  bottom: 0;
+}
+
+.card-heading {
+  font-size: 40px;
+  line-height: 40px;
+  font-weight: 400;
+  padding-top: 50px;
+  padding-left: 25px;
+  padding-right: 25px;
+  border-top: 1px solid black;
+}
+
+.card-button {
+  cursor: pointer;
+  margin-top: auto;
+  margin-left: auto;
+  font-size: 30px;
+  padding: 10px;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  transition: all 500ms ease;
+  transform-origin: top;
+}
+
+.card-button:hover {
+  background: #0000ff;
+  color: white;
+}
+
+a {
+  text-decoration: none;
+}
+
+#dono-amount {
+  height: 1.5rem;
+}
+
+form {
+  padding-left: 150px;
+}
+
+label {
+  font-size: 70px;
+  padding-top: 100px;
+}
+
+input {
+  height: 50px;
+  font-size: 45px;
+}
