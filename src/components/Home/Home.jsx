@@ -19,9 +19,18 @@ const ShuffleHero = () => {
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam nobis in
           error repellat voluptatibus ad.
         </p>
-        <button className="bg-indigo-500 text-white font-medium py-2 px-4 rounded transition-all hover:bg-indigo-600 active:scale-95">
-          <Link to="/Quiz">Start Assessment</Link>
-        </button>
+        <button className="bg-indigo-500 text-white font-medium my-2 py-2 px-4 rounded transition-all hover:bg-indigo-600 active:scale-95">
+          <Link to="/Retail">Retail Sector</Link>
+        </button><br/>
+        <button className="bg-indigo-500 text-white font-medium my-2 py-2 px-4 rounded transition-all hover:bg-indigo-600 active:scale-95">
+          <Link to="/Manufacturing">Manufacturing Sector</Link>
+        </button><br/>
+        <button className="bg-indigo-500 text-white font-medium my-2 py-2 px-4 rounded transition-all hover:bg-indigo-600 active:scale-95">
+          <Link to="/Construction">Construction Sector</Link>
+        </button><br/>
+        <button className="bg-indigo-500 text-white font-medium my-2 py-2 px-4 rounded transition-all hover:bg-indigo-600 active:scale-95">
+          <Link to="/Service">Service Sector</Link>
+        </button><br/>
       </div>
       <ShuffleGrid />
     </section>

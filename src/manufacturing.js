@@ -1,8 +1,8 @@
-export const Qn = {
+export const manufacturingQN = {
     questions: [
       {
         question:
-          "Who is responsible for purchasing?",
+          "Questions for manufacturing?",
         choices: [
           "A dedicated person is available",
           "Assigned to another profile",
@@ -148,8 +148,23 @@ export const Qn = {
       },
     ],
   };
-
+  
   export const resultInitialState = {
-    questions:0,
-    score:0
- }
+    section1: 0,
+    section2: 0,
+    total: 0,
+  };
+
+  export const sectionInfo = {
+    section1: {
+      heading: "Purchase Department",
+      numQuestions: 4,
+
+    },
+    section2: {
+      heading: "Inventory Department",
+      numQuestions: 6,
+    },
+  };
+
+  

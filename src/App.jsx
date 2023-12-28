@@ -1,11 +1,11 @@
-import { HashRouter,Routes,Route } from 'react-router-dom';
+import { BrowserRouter,Routes,Route } from 'react-router-dom';
 
 import AnimatedRoutes from './components/AnimatedRoutes/AnimatedRoutes';
 function App() {
   return(
-  <HashRouter basename={process.env.PUBLIC_URL}>
+  <BrowserRouter basename="/Pulse-Point">
       <AnimatedRoutes/>
-  </HashRouter>);
+  </BrowserRouter>);
   
   // return <Quiz questions={jsQuizz.questions}/>;
 }
