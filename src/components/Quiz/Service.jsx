@@ -31,6 +31,7 @@ const ServiceQuiz = ({ questions }) => {
 
   const [currentSection, setCurrentSection] = useState(1);
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [sectionQuestion,setSectionQuestion] = useState(0)
   const [answerIdx, setAnswerIdx] = useState(null);
   const [answer, setAnswer] = useState(null);
   const [result, setResult] = useState(resultInitialState);
@@ -43,10 +44,17 @@ const ServiceQuiz = ({ questions }) => {
     setAnswerIdx(index);
     setAnswer(scores[index]);
   };
-
+  
   const onClickNext = () => {
     setAnswerIdx(null);
-
+    console.log(currentQuestion+1,'>=', questions.length)
+    
+    if(currentQuestion+1>=questions.length){
+      setShowResult(true);
+    }
+    else{setCurrentQuestion((prev) => prev + 1);}
+    
+    
     const currentSectionKey = `section${currentSection}`;
     const currentResult = result[currentSectionKey] || 0;
 
@@ -55,9 +63,9 @@ const ServiceQuiz = ({ questions }) => {
       [currentSectionKey]: currentResult + answer,
       total: prev.total + answer,
     }));
-
-    if (currentQuestion + 1 < sectionLength) {
-      setCurrentQuestion((prev) => prev + 1);
+    
+    if (sectionQuestion + 1 < sectionLength) {
+      setSectionQuestion((prev) => prev + 1);
     } else {
       // If at the end of the current section, move to the next section
       const sectionKeys = Object.keys(sectionInfo);
@@ -72,7 +80,7 @@ const ServiceQuiz = ({ questions }) => {
         setShowResult(true);
       } else {
         // Reset the current question for the new section
-        setCurrentQuestion(0);
+        setSectionQuestion(0);
       }
     }
   };
@@ -98,7 +106,7 @@ const ServiceQuiz = ({ questions }) => {
         <h3 className="result-heading">Result</h3>
         {sectionKeys.map((sectionKey, index) => (
           <div key={sectionKey} className="Status">
-            {`${sectionInfo[sectionKey].heading} Status: ${getSectionStatus(sectionKey, result[sectionKey], sectionInfo[sectionKey].numQuestions)}`}
+            {`${sectionInfo[sectionKey].heading} Status :     ${getSectionStatus(sectionKey, result[sectionKey], sectionInfo[sectionKey].numQuestions)}`}
           </div>
         ))}
         <div className="Total-Score">Total Status: {getSectionStatus("total", result.total, questions.length)}</div>
@@ -112,7 +120,7 @@ const ServiceQuiz = ({ questions }) => {
       {!showResult ? (
         <>
           <h2 className="section-heading"> {sectionInfo[`section${currentSection}`].heading}</h2>
-          <span className="active-question-no">{currentQuestion + 1}</span>
+          <span className="active-question-no">{sectionQuestion + 1}</span>
           <span className="total-question">{`/${sectionLength}`}</span>
           <h2>{question}</h2>
           <ul>

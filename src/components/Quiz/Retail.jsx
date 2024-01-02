@@ -29,6 +29,7 @@ const RetailQuiz = ({ questions }) => {
     return <div>No questions available</div>;
   }
 
+  
   const [currentSection, setCurrentSection] = useState(1);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answerIdx, setAnswerIdx] = useState(null);
@@ -55,7 +56,7 @@ const RetailQuiz = ({ questions }) => {
       [currentSectionKey]: currentResult + answer,
       total: prev.total + answer,
     }));
-
+vimosa
     if (currentQuestion + 1 < sectionLength) {
       setCurrentQuestion((prev) => prev + 1);
     } else {
