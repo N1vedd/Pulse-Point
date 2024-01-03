@@ -420,14 +420,14 @@ export const serviceQN = {
   };
   
   export const resultInitialState = {
-    section1: 0,
-    section2: 0,
-    section3:0,
-    section4: 0,
-    section5: 0,
-    section6:0,
-    section7: 0,
-    section8: 0,
+    section1: Array(10).fill(0),
+    section2: Array(10).fill(0),
+    section3: Array(10).fill(0),
+    section4: Array(10).fill(0),
+    section5: Array(10).fill(0),
+    section6: Array(10).fill(0),
+    section7: Array(10).fill(0),
+    section8: Array(10).fill(0),  
     total: 0,
   };
 

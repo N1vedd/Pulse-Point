@@ -1,12 +1,12 @@
-
 import { useState } from "react";
 import "./Quiz.scss";
 import { easeInOut, motion } from 'framer-motion';
-import { sectionInfo,resultInitialState } from "../../retail";
+import { sectionInfo, resultInitialState } from "../../retail";
 
-
-const getSectionStatus = (sectionKey, sectionScore, numQuestions) => {
-  const percentage = (sectionScore / (10 * numQuestions)) * 100;
+const getSectionStatus = (sectionKey, sectionScores, numQuestions) => {
+  const scoresArray = Array.isArray(sectionScores) ? sectionScores : [sectionScores];
+  const totalScore = scoresArray.reduce((acc, score) => acc + score, 0);
+  const percentage = (totalScore / (10 * numQuestions)) * 100;
 
   if (percentage === 100) {
     return "SUPREME";
@@ -29,9 +29,9 @@ const RetailQuiz = ({ questions }) => {
     return <div>No questions available</div>;
   }
 
-  
   const [currentSection, setCurrentSection] = useState(1);
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [sectionQuestion, setSectionQuestion] = useState(0);
   const [answerIdx, setAnswerIdx] = useState(null);
   const [answer, setAnswer] = useState(null);
   const [result, setResult] = useState(resultInitialState);
@@ -47,35 +47,55 @@ const RetailQuiz = ({ questions }) => {
 
   const onClickNext = () => {
     setAnswerIdx(null);
-
+  
+    if (currentQuestion + 1 >= questions.length) {
+      const totalScore = Object.values(result).reduce((acc, sectionScores) => {
+        // Ensure sectionScores is an array
+        const scoresArray = Array.isArray(sectionScores) ? sectionScores : [sectionScores];
+        return acc + scoresArray.reduce((sum, score) => sum + score, 0);
+      }, 0);
+      setResult((prev) => ({ ...prev, total: totalScore }));
+      setShowResult(true);
+    } else {
+      setCurrentQuestion((prev) => prev + 1);
+    }
+  
     const currentSectionKey = `section${currentSection}`;
-    const currentResult = result[currentSectionKey] || 0;
-
+    const currentResult = [...result[currentSectionKey]]; // Create a copy of the array
+    currentResult[sectionQuestion] = answer; // Set the score for the current question
     setResult((prev) => ({
       ...prev,
-      [currentSectionKey]: currentResult + answer,
-      total: prev.total + answer,
+      [currentSectionKey]: currentResult,
     }));
-vimosa
-    if (currentQuestion + 1 < sectionLength) {
-      setCurrentQuestion((prev) => prev + 1);
+  
+    if (sectionQuestion + 1 < sectionLength) {
+      setSectionQuestion((prev) => prev + 1);
     } else {
       // If at the end of the current section, move to the next section
       const sectionKeys = Object.keys(sectionInfo);
       const currentSectionIndex = sectionKeys.indexOf(currentSectionKey);
       const nextSectionIndex = (currentSectionIndex + 1) % sectionKeys.length;
       const nextSectionKey = sectionKeys[nextSectionIndex];
-
+  
       setCurrentSection(Number(nextSectionKey.replace("section", "")));
-
+  
       if (nextSectionIndex === 0) {
         // If this is the first section, show the result
         setShowResult(true);
       } else {
         // Reset the current question for the new section
-        setCurrentQuestion(0);
+        setSectionQuestion(0);
       }
     }
+  };
+    
+  
+
+  const onClickPrev = () => {
+    setAnswerIdx(null);
+    setSectionQuestion((prev) => prev - 1);
+    setCurrentQuestion((prev) => prev - 1);
+
   };
 
   const downloadCSV = () => {
@@ -93,17 +113,17 @@ vimosa
 
   const Result = () => {
     const sectionKeys = Object.keys(sectionInfo);
-  
+
     return (
       <div className="Result">
         <h3 className="result-heading">Result</h3>
         {sectionKeys.map((sectionKey, index) => (
           <div key={sectionKey} className="Status">
-            {`${sectionInfo[sectionKey].heading} Status: ${getSectionStatus(sectionKey, result[sectionKey], sectionInfo[sectionKey].numQuestions)}`}
+            {`${sectionInfo[sectionKey].heading} Status :     ${getSectionStatus(sectionKey, result[sectionKey], sectionInfo[sectionKey].numQuestions)}`}
           </div>
         ))}
         <div className="Total-Score">Total Status: {getSectionStatus("total", result.total, questions.length)}</div>
-        <motion.button whileHover={{scale:1.05}}className="csv" onClick={downloadCSV}>Download CSV</motion.button>
+        <motion.button whileHover={{ scale: 1.25 }} className="csv" onClick={downloadCSV}>Download CSV</motion.button>
       </div>
     );
   };
@@ -113,7 +133,7 @@ vimosa
       {!showResult ? (
         <>
           <h2 className="section-heading"> {sectionInfo[`section${currentSection}`].heading}</h2>
-          <span className="active-question-no">{currentQuestion + 1}</span>
+          <span className="active-question-no">{sectionQuestion + 1}</span>
           <span className="total-question">{`/${sectionLength}`}</span>
           <h2>{question}</h2>
           <ul>
@@ -128,7 +148,10 @@ vimosa
             ))}
           </ul>
           <div className="footer">
-            <button onClick={onClickNext} disabled={answerIdx === null}>
+            {(sectionQuestion === 0) ? null : <button onClick={onClickPrev} id='Prev_button'>
+              Back
+            </button>}
+            <button onClick={onClickNext} disabled={answerIdx === null} id="Next_button">
               {currentQuestion === sectionLength - 1 ? "Next Section" : "Next"}
             </button>
           </div>

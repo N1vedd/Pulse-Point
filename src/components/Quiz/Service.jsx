@@ -1,12 +1,12 @@
-
 import { useState } from "react";
 import "./Quiz.scss";
 import { easeInOut, motion } from 'framer-motion';
-import { sectionInfo,resultInitialState } from "../../service";
+import { sectionInfo, resultInitialState } from "../../service";
 
-
-const getSectionStatus = (sectionKey, sectionScore, numQuestions) => {
-  const percentage = (sectionScore / (10 * numQuestions)) * 100;
+const getSectionStatus = (sectionKey, sectionScores, numQuestions) => {
+  const scoresArray = Array.isArray(sectionScores) ? sectionScores : [sectionScores];
+  const totalScore = scoresArray.reduce((acc, score) => acc + score, 0);
+  const percentage = (totalScore / (10 * numQuestions)) * 100;
 
   if (percentage === 100) {
     return "SUPREME";
@@ -31,7 +31,7 @@ const ServiceQuiz = ({ questions }) => {
 
   const [currentSection, setCurrentSection] = useState(1);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [sectionQuestion,setSectionQuestion] = useState(0)
+  const [sectionQuestion, setSectionQuestion] = useState(0);
   const [answerIdx, setAnswerIdx] = useState(null);
   const [answer, setAnswer] = useState(null);
   const [result, setResult] = useState(resultInitialState);
@@ -44,26 +44,30 @@ const ServiceQuiz = ({ questions }) => {
     setAnswerIdx(index);
     setAnswer(scores[index]);
   };
-  
+
   const onClickNext = () => {
     setAnswerIdx(null);
-    console.log(currentQuestion+1,'>=', questions.length)
-    
-    if(currentQuestion+1>=questions.length){
+  
+    if (currentQuestion + 1 >= questions.length) {
+      const totalScore = Object.values(result).reduce((acc, sectionScores) => {
+        // Ensure sectionScores is an array
+        const scoresArray = Array.isArray(sectionScores) ? sectionScores : [sectionScores];
+        return acc + scoresArray.reduce((sum, score) => sum + score, 0);
+      }, 0);
+      setResult((prev) => ({ ...prev, total: totalScore }));
       setShowResult(true);
+    } else {
+      setCurrentQuestion((prev) => prev + 1);
     }
-    else{setCurrentQuestion((prev) => prev + 1);}
-    
-    
+  
     const currentSectionKey = `section${currentSection}`;
-    const currentResult = result[currentSectionKey] || 0;
-
+    const currentResult = [...result[currentSectionKey]]; // Create a copy of the array
+    currentResult[sectionQuestion] = answer; // Set the score for the current question
     setResult((prev) => ({
       ...prev,
-      [currentSectionKey]: currentResult + answer,
-      total: prev.total + answer,
+      [currentSectionKey]: currentResult,
     }));
-    
+  
     if (sectionQuestion + 1 < sectionLength) {
       setSectionQuestion((prev) => prev + 1);
     } else {
@@ -72,9 +76,9 @@ const ServiceQuiz = ({ questions }) => {
       const currentSectionIndex = sectionKeys.indexOf(currentSectionKey);
       const nextSectionIndex = (currentSectionIndex + 1) % sectionKeys.length;
       const nextSectionKey = sectionKeys[nextSectionIndex];
-
+  
       setCurrentSection(Number(nextSectionKey.replace("section", "")));
-
+  
       if (nextSectionIndex === 0) {
         // If this is the first section, show the result
         setShowResult(true);
@@ -83,6 +87,15 @@ const ServiceQuiz = ({ questions }) => {
         setSectionQuestion(0);
       }
     }
+  };
+    
+  
+
+  const onClickPrev = () => {
+    setAnswerIdx(null);
+    setSectionQuestion((prev) => prev - 1);
+    setCurrentQuestion((prev) => prev - 1);
+
   };
 
   const downloadCSV = () => {
@@ -100,7 +113,7 @@ const ServiceQuiz = ({ questions }) => {
 
   const Result = () => {
     const sectionKeys = Object.keys(sectionInfo);
-  
+
     return (
       <div className="Result">
         <h3 className="result-heading">Result</h3>
@@ -110,7 +123,7 @@ const ServiceQuiz = ({ questions }) => {
           </div>
         ))}
         <div className="Total-Score">Total Status: {getSectionStatus("total", result.total, questions.length)}</div>
-        <motion.button whileHover={{scale:1.25}}className="csv" onClick={downloadCSV}>Download CSV</motion.button>
+        <motion.button whileHover={{ scale: 1.25 }} className="csv" onClick={downloadCSV}>Download CSV</motion.button>
       </div>
     );
   };
@@ -135,7 +148,10 @@ const ServiceQuiz = ({ questions }) => {
             ))}
           </ul>
           <div className="footer">
-            <button onClick={onClickNext} disabled={answerIdx === null}>
+            {(sectionQuestion === 0) ? null : <button onClick={onClickPrev} id='Prev_button'>
+              Back
+            </button>}
+            <button onClick={onClickNext} disabled={answerIdx === null} id="Next_button">
               {currentQuestion === sectionLength - 1 ? "Next Section" : "Next"}
             </button>
           </div>
