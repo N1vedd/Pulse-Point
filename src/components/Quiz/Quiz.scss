@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz@6..12&display=swap');
 
 body{
-    font-family: monospace;
+    font-family: 'Nunito Sans', sans-serif;
     background: $bg;
     color: $foreground;
     display: flex;
@@ -21,9 +21,16 @@ body{
     min-width: 100vw;
 }
 
+.options{
+    color: black;
+    background-color: white;
+}
+
 .quiz-container{
+    height: 80%;
+    min-height: 90vh;
     width: 85vw;
-    height: 80vh;
+    min-height: 80%;
     background: $bg;
     border: 1px solid black;
     border-radius: 4px;
@@ -68,8 +75,9 @@ body{
     }
 
     ul{
-        margin-top: 100px;
+        margin-top: 2em;
         margin-left: -40px;
+        margin-bottom: 2em;
         
 
         li{
@@ -93,7 +101,6 @@ body{
     }
 
     .footer{
-        margin-top: 30px;
         display: flex;
         justify-content: space-between;
         button{
@@ -156,4 +163,5 @@ body{
     .result-heading{
         padding-bottom: 20px;
     }
+
 }

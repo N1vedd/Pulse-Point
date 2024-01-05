@@ -2,41 +2,72 @@ import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import transition from "../Transition/Transition";
-const ShuffleHero = () => {
+const SectorDropdown = ({ onSelect }) => {
+  const sectorOptions = [
+    { value: "Retail", label: "Retail Sector" },
+    { value: "Manufacturing", label: "Manufacturing Sector" },
+    { value: "Construction", label: "Construction Sector" },
+    { value: "Service", label: "Service Sector" },
+  ];
+
   return (
-    <motion.div
-     initial={{width:0}}
-     animate={{width:"100%"}}
-     exit={{x:"-100%",transition:{duration:0.5}}}
-     >
-    <section className="h-screen w-full px-8 py-12 grid grid-cols-1 md:grid-cols-2 items-center gap-8 max-w-6xl mx-auto">
-      <div>
-        
-        <h3 className="text-4xl md:text-6xl font-semibold">
-          LET'S ASSESS YOUR BUSINESS
-        </h3>
-        <p className="text-base md:text-lg text-slate-700 my-4 md:my-6">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam nobis in
-          error repellat voluptatibus ad.
-        </p>
-        <button className="bg-indigo-500 text-white font-medium my-2 py-2 px-4 rounded transition-all hover:bg-indigo-600 active:scale-95">
-          <Link to="/Retail">Retail Sector</Link>
-        </button><br/>
-        <button className="bg-indigo-500 text-white font-medium my-2 py-2 px-4 rounded transition-all hover:bg-indigo-600 active:scale-95">
-          <Link to="/Manufacturing">Manufacturing Sector</Link>
-        </button><br/>
-        <button className="bg-indigo-500 text-white font-medium my-2 py-2 px-4 rounded transition-all hover:bg-indigo-600 active:scale-95">
-          <Link to="/Construction">Construction Sector</Link>
-        </button><br/>
-        <button className="bg-indigo-500 text-white font-medium my-2 py-2 px-4 rounded transition-all hover:bg-indigo-600 active:scale-95">
-          <Link to="/Service">Service Sector</Link>
-        </button><br/>
-      </div>
-      <ShuffleGrid />
-    </section>
-    </motion.div>
+    <div className="relative inline-block">
+      <select
+        className="bg-indigo-500 text-white font-medium py-2 px-4 rounded transition-all focus:outline-none"
+        onChange={(e) => onSelect(e.target.value)}
+      >
+        {sectorOptions.map((option) => (
+          <option
+            key={option.value}
+            value={option.value}
+            disabled={option.disabled}
+          >
+            {option.label}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 };
+
+const ShuffleHero = () => {
+  const [selectedSector, setSelectedSector] = useState("Retail");
+
+  const handleDropdownChange = (sector) => {
+    setSelectedSector(sector);
+  };
+
+  return (
+    <motion.div
+      initial={{ width: 0 }}
+      animate={{ width: "100%" }}
+      exit={{ x: "-100%", transition: { duration: 0.5 } }}
+    >
+      <section className="h-screen w-full px-8 py-12 grid grid-cols-1 md:grid-cols-2 items-center gap-8 max-w-6xl mx-auto">
+        <div>
+          <h3 className="text-4xl md:text-6xl font-semibold">
+            LET'S ASSESS YOUR BUSINESS
+          </h3>
+          <p className="text-base md:text-lg text-slate-700 my-4 md:my-6">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam nobis
+            in error repellat voluptatibus ad.
+          </p>
+          <SectorDropdown onSelect={handleDropdownChange} />
+          <br/>
+          <button
+            className="bg-white font-bold text-indigo-500 border-2 border-indigo-500  my-2 py-2 px-4 rounded transition-all hover:bg-indigo-600 hover:text-white  active:scale-95"
+            disabled={!selectedSector}
+            id="Select-Industry"
+          >
+            
+            <Link className to={`/${selectedSector}`}>Start Assessment</Link>
+          </button>
+        </div>
+        <ShuffleGrid/>
+      </section>
+    </motion.div>
+  );
+}
 
 const shuffle = (array) => {
   let currentIndex = array.length,
@@ -136,6 +167,7 @@ const generateSquares = () => {
     ></motion.div>
   ));
 };
+
 
 const ShuffleGrid = () => {
   const timeoutRef = useRef(null);
