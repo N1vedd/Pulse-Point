@@ -2,36 +2,33 @@ import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import transition from "../Transition/Transition";
+
 const SectorDropdown = ({ onSelect }) => {
-  const sectorOptions = [
-    { value: "Retail", label: "Retail Sector" },
-    { value: "Manufacturing", label: "Manufacturing Sector" },
-    { value: "Construction", label: "Construction Sector" },
-    { value: "Service", label: "Service Sector" },
-  ];
+  const [selectedSector, setSelectedSector] = useState("");
+  const handleDropdownChange = (sector) => {
+    setSelectedSector(sector);
+    onSelect(sector);
+  };
+
 
   return (
     <div className="relative inline-block">
       <select
         className="bg-indigo-500 text-white font-medium py-2 px-4 rounded transition-all focus:outline-none"
-        onChange={(e) => onSelect(e.target.value)}
+        onChange={(e) => handleDropdownChange(e.target.value)}
       >
-        {sectorOptions.map((option) => (
-          <option
-            key={option.value}
-            value={option.value}
-            disabled={option.disabled}
-          >
-            {option.label}
-          </option>
-        ))}
+        <option value="">Select Industry</option>
+        <option value="Retail">Retail Sector</option>
+        <option value="Manufacturing">Manufacturing Sector</option>
+        <option value="Construction">Construction Sector</option>
+        <option value="Service">Service Sector</option>
       </select>
     </div>
   );
 };
 
 const ShuffleHero = () => {
-  const [selectedSector, setSelectedSector] = useState("Retail");
+  const [selectedSector, setSelectedSector] = useState("");
 
   const handleDropdownChange = (sector) => {
     setSelectedSector(sector);
@@ -45,6 +42,7 @@ const ShuffleHero = () => {
     >
       <section className="h-screen w-full px-8 py-12 grid grid-cols-1 md:grid-cols-2 items-center gap-8 max-w-6xl mx-auto">
         <div>
+        <img id="Logo" alt="Logo" src="/Pulse-Point/src/assets/Logo2.png"/>
           <h3 className="text-4xl md:text-6xl font-semibold">
             LET'S ASSESS YOUR BUSINESS
           </h3>
@@ -60,7 +58,7 @@ const ShuffleHero = () => {
             id="Select-Industry"
           >
             
-            <Link className to={`/${selectedSector}`}>Start Assessment</Link>
+            <Link disabled={selectedSector === ""} to={`/${selectedSector}`}>Start Assessment</Link>
           </button>
         </div>
         <ShuffleGrid/>
