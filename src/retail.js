@@ -161,12 +161,12 @@ export const retailQN = {
       {
         question: "What type of inventory management system is currently in use?",
         choices: ["ERP/Systematic operation", "Manual operations", "No specific system available"],
-        scores: [10, 0, 0],
+        scores: [10, 2.5, 0],
       },
       {
         question: "Is there a standardized system for inventory cataloging that includes unique identifiers?",
         choices: ["Yes, with a unique code for each item", "Yes, using a combination of product details", "No, a standardized system is not in place", "Other (please specify)"],
-        scores: [0, 2.5, 5, 0],
+        scores: [10, 5, 2.5, 0],
       },
       {
         question: "What procedures are in place for verifying incoming inventory against purchase orders?",
