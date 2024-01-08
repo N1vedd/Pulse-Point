@@ -42,7 +42,7 @@ const ShuffleHero = () => {
     >
       <section className="h-screen w-full px-8 py-12 grid grid-cols-1 md:grid-cols-2 items-center gap-8 max-w-6xl mx-auto">
         <div>
-        <img id="Logo" alt="Logo" src="https://imgur.com/O9qRhZK"/>
+        <img id="Logo" alt="Logo" src="https://i.imgur.com/ikr5u1j.png"/>
           <h3 className="text-4xl md:text-6xl font-semibold">
             LET'S ASSESS YOUR BUSINESS
           </h3>
