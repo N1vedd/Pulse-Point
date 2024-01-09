@@ -7,10 +7,10 @@ const getSectionStatus = (sectionKey, sectionScores, numQuestions) => {
   const scoresArray = Array.isArray(sectionScores) ? sectionScores : [sectionScores];
   const totalScore = scoresArray.reduce((acc, score) => acc + score, 0);
   const percentage = (totalScore / (10 * numQuestions)) * 100;
-
-  if (percentage === 100) {
+  console.log("Total Score",totalScore,"\tQuestions:",numQuestions,"\tPercentage:",percentage);
+  if (percentage >= 98) {
     return "SUPREME";
-  } else if (percentage >= 90 && percentage <= 99) {
+  } else if (percentage >= 90 && percentage <= 97) {
     return "HEALTHY";
   } else if (percentage >= 80 && percentage <= 89) {
     return "INFECTED";
@@ -47,14 +47,21 @@ const ManufacturingQuiz = ({ questions }) => {
 
   const onClickNext = () => {
     setAnswerIdx(null);
-  
     if (currentQuestion + 1 >= questions.length) {
+      const currentSectionKey = `section${currentSection}`;
+    const currentResult = [...result[currentSectionKey]]; // Create a copy of the array
+    currentResult[sectionQuestion] = answer; // Set the score for the current question
+    setResult((prev) => ({
+      ...prev,
+      [currentSectionKey]: currentResult,
+    }));
       const totalScore = Object.values(result).reduce((acc, sectionScores) => {
         // Ensure sectionScores is an array
         const scoresArray = Array.isArray(sectionScores) ? sectionScores : [sectionScores];
         return acc + scoresArray.reduce((sum, score) => sum + score, 0);
       }, 0);
       setResult((prev) => ({ ...prev, total: totalScore }));
+
       setShowResult(true);
     } else {
       setCurrentQuestion((prev) => prev + 1);
